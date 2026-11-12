@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>عطر ديفاكتو سي أكوا</title>
+<style>
+  :root {
+    --bg: #f2f5f1;
+    --surface: #ffffff;
+    --ink: #13241f;
+    --muted: #51625d;
+    --teal: #0e6b5c;
+    --teal-dark: #0a4f44;
+    --saffron: #f2a900;
+    --line: #d5ddd8;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1a17;
+      --surface: #172622;
+      --ink: #eef3f0;
+      --muted: #a4b5af;
+      --teal: #35b59f;
+      --teal-dark: #278c7a;
+      --saffron: #f2b630;
+      --line: #2a3d37;
+      color-scheme: dark;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Segoe UI", Tahoma, "Noto Naskh Arabic", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.8;
+    padding-bottom: 84px;
+  }
+  a, button, input, select, textarea { font: inherit; }
+  :focus-visible { outline: 3px solid var(--saffron); outline-offset: 2px; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 18px; }
+
+  /* top strip */
+  .strip { background: var(--teal-dark); color: #fff; text-align: center; font-size: 14px; padding: 8px 12px; }
+
+  /* hero */
+  .hero { padding: 22px 0 8px; }
+  .gallery {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    display: grid;
+    place-items: center;
+  }
+  .gallery img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .placeholder { text-align: center; color: var(--muted); padding: 24px; }
+  .placeholder svg { width: 96px; height: 96px; margin-bottom: 10px; }
+  .thumbs { display: flex; gap: 10px; margin-top: 10px; overflow-x: auto; }
+  .thumbs button {
+    flex: 0 0 64px; height: 64px; border-radius: 12px; overflow: hidden;
+    border: 2px solid transparent; background: var(--surface); cursor: pointer; padding: 0;
+  }
+  .thumbs button[aria-current="true"] { border-color: var(--saffron); }
+  .thumbs img { width: 100%; height: 100%; object-fit: cover; }
+
+  h1 { font-size: clamp(26px, 6.5vw, 38px); line-height: 1.35; margin: 20px 0 6px; }
+  .sub { color: var(--muted); font-size: 17px; }
+
+  .price-row { display: flex; align-items: baseline; gap: 12px; margin: 16px 0 4px; flex-wrap: wrap; }
+  .price { font-size: 34px; font-weight: 800; color: var(--teal); }
+  .old { color: var(--muted); text-decoration: line-through; font-size: 18px; }
+  .save { background: var(--saffron); color: #2a1d00; font-weight: 700; font-size: 14px; padding: 2px 10px; border-radius: 999px; }
+  .cod { color: var(--muted); font-size: 15px; }
+
+  .btn {
+    display: inline-block; text-align: center; text-decoration: none; cursor: pointer;
+    background: var(--teal); color: #fff; border: 0; border-radius: 14px;
+    padding: 14px 22px; font-weight: 700; font-size: 18px;
+  }
+  .btn:hover { background: var(--teal-dark); }
+  .btn.block { display: block; width: 100%; }
+  .btn.wa { background: #1f9d55; }
+  .btn.wa:hover { background: #167a42; }
+  .cta { margin: 18px 0 6px; }
+
+  /* sections */
+  section { padding: 30px 0 6px; }
+  h2 { font-size: 24px; margin-bottom: 14px; }
+  .feat { list-style: none; display: grid; gap: 12px; }
+  .feat li {
+    display: flex; gap: 12px; align-items: flex-start;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 14px; padding: 14px 16px;
+  }
+  .feat .tick {
+    flex: 0 0 26px; height: 26px; border-radius: 50%;
+    background: var(--teal); color: #fff; display: grid; place-items: center; font-size: 15px; margin-top: 2px;
+  }
+  .feat strong { display: block; }
+  .feat span.d { color: var(--muted); font-size: 15px; }
+
+  .specs { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  .specs th, .specs td { text-align: right; padding: 11px 16px; border-bottom: 1px solid var(--line); font-size: 16px; }
+  .specs tr:last-child th, .specs tr:last-child td { border-bottom: 0; }
+  .specs th { width: 38%; color: var(--muted); font-weight: 600; }
+
+  /* order form */
+  .order { background: var(--surface); border: 2px solid var(--teal); border-radius: 20px; padding: 20px; }
+  .order h2 { margin-bottom: 4px; }
+  .order p.note { color: var(--muted); font-size: 15px; margin-bottom: 16px; }
+  label { display: block; font-weight: 600; margin: 12px 0 4px; font-size: 16px; }
+  input, select, textarea {
+    width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line);
+    background: var(--bg); color: var(--ink); font-size: 17px;
+  }
+  textarea { min-height: 76px; resize: vertical; }
+  .qty { display: flex; align-items: center; gap: 10px; }
+  .qty button {
+    width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--line);
+    background: var(--bg); color: var(--ink); font-size: 22px; cursor: pointer;
+  }
+  .qty output { min-width: 36px; text-align: center; font-size: 20px; font-weight: 700; }
+  .total { display: flex; justify-content: space-between; margin: 18px 0 12px; padding-top: 14px; border-top: 1px dashed var(--line); font-size: 18px; }
+  .total b { color: var(--teal); font-size: 22px; }
+  .payinfo { background: var(--bg); border: 1px dashed var(--teal); border-radius: 12px; padding: 10px 14px; margin-top: 10px; font-size: 15px; }
+  .err { color: #c0392b; font-size: 14px; min-height: 20px; margin-top: 8px; }
+  @media (prefers-color-scheme: dark) { .err { color: #ff8a7a; } }
+
+  details {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+    padding: 12px 16px; margin-bottom: 10px;
+  }
+  summary { cursor: pointer; font-weight: 700; }
+  details p { color: var(--muted); margin-top: 8px; font-size: 16px; }
+
+  footer { text-align: center; color: var(--muted); font-size: 14px; padding: 30px 0 10px; }
+
+  /* sticky bar */
+  .bar {
+    position: fixed; inset-inline: 0; bottom: 0; z-index: 10;
+    background: var(--surface); border-top: 1px solid var(--line);
+    padding: 10px 18px; display: flex; align-items: center; gap: 14px;
+  }
+  .bar .p { font-weight: 800; font-size: 20px; color: var(--teal); white-space: nowrap; }
+  .bar .btn { flex: 1; padding: 12px; }
+
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<div class="strip" id="strip"></div>
+
+<main class="wrap">
+  <header class="hero">
+    <div class="gallery" id="gallery"></div>
+    <div class="thumbs" id="thumbs"></div>
+
+    <h1 id="name"></h1>
+    <p class="sub" id="tagline"></p>
+
+    <div class="price-row">
+      <span class="price" id="price"></span>
+      <span class="old" id="old"></span>
+      <span class="save" id="save"></span>
+    </div>
+    <p class="cod">الدفع بفودافون كاش أو إنستا باي.</p>
+
+    <div class="cta"><a class="btn block" href="#order">اطلب دلوقتي</a></div>
+  </header>
+
+  <section>
+    <h2>ليه المنتج ده؟</h2>
+    <ul class="feat" id="features"></ul>
+  </section>
+
+  <section>
+    <h2>المواصفات</h2>
+    <table class="specs" id="specs"></table>
+  </section>
+
+  <section id="order">
+    <div class="order">
+      <h2>اطلب دلوقتي</h2>
+      <p class="note">املا البيانات واختار طريقة الدفع، وهنكمل الطلب معاك على واتساب.</p>
+
+      <label for="fname">الاسم</label>
+      <input id="fname" autocomplete="name" placeholder="اسمك بالكامل">
+
+      <label for="fphone">رقم الموبايل</label>
+      <input id="fphone" type="tel" inputmode="tel" autocomplete="tel" placeholder="01xxxxxxxxx">
+
+      <label for="fgov">المحافظة</label>
+      <select id="fgov"></select>
+
+      <label for="faddr">العنوان بالتفصيل</label>
+      <textarea id="faddr" placeholder="الشارع، رقم العمارة، علامة مميزة"></textarea>
+
+      <label>الكمية</label>
+      <div class="qty">
+        <button type="button" id="minus" aria-label="قلل الكمية">−</button>
+        <output id="qty">1</output>
+        <button type="button" id="plus" aria-label="زوّد الكمية">+</button>
+      </div>
+
+      <label for="fpay">طريقة الدفع</label>
+      <select id="fpay">
+        <option value="vodafone">فودافون كاش</option>
+        <option value="insta">إنستا باي</option>
+      </select>
+      <p class="payinfo" id="payinfo"></p>
+
+      <div class="total"><span>الإجمالي (شامل الشحن)</span><b id="total"></b></div>
+      <button class="btn wa block" id="send" type="button">أكّد الطلب على واتساب</button>
+      <p class="err" id="err" role="alert"></p>
+    </div>
+  </section>
+
+  <section>
+    <h2>أسئلة بتتكرر</h2>
+    <details><summary>التوصيل بياخد قد إيه؟</summary><p id="faq-ship"></p></details>
+    <details><summary>أدفع إزاي؟</summary><p id="faq-pay"></p></details>
+    <details><summary>لو المنتج مش عاجبني؟</summary><p id="faq-return"></p></details>
+  </section>
+
+  <footer id="foot"></footer>
+</main>
+
+<div class="bar">
+  <span class="p" id="barprice"></span>
+  <a class="btn" href="#order">اطلب دلوقتي</a>
+</div>
+
+<script>
+/* ============================================================
+   عدّل هنا بس. كل الصفحة بتتبني من الإعدادات دي.
+   ============================================================ */
+const CONFIG = {
+  name: "عطر ديفاكتو سي أكوا - أو دو بارفان",
+  tagline: "رائحة بحرية منعشة لاستخدامك اليومي.",
+  price: 500,            // سعر القطعة بالجنيه
+  oldPrice: 1000,        // السعر القديم، اتركه 0 لو مفيش سعر قديم حقيقي
+  shipping: 50,          // مصاريف الشحن، 0 لو الشحن مجاني
+  whatsapp: "201031832817", // رقمك بالصيغة الدولية بدون +
+  payVodafone: "01031832817",   // رقم فودافون كاش بتاعك
+  payInsta: "yourname@instapay", // عنوان إنستا باي بتاعك
+  sheetUrl: "",         // رابط Google Apps Script لتسجيل الطلبات في شيت (اتركه فاضي لو مش عايزه)
+  strip: "شحن لكل المحافظات والدفع فودافون كاش أو إنستا باي",
+  images: ["data:image/jpeg;base64,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"],
+  features: [
+    ["أو دو بارفان", "تركيز عطري أعلى من العطور الخفيفة."],
+    ["زجاجة أنيقة", "تصميم بسيط وشكل مناسب للهدية."],
+    ["لاستخدام يومي", "رائحة منعشة تناسب الشغل والخروج."]
+  ],
+  specs: [
+    ["الماركة", "DeFacto"],
+    ["الاسم", "Sea Aqua"],
+    ["النوع", "Eau de Parfum"],
+    ["الحجم", "250 مل"]
+  ],
+  shipText: "من 2 إلى 5 أيام عمل حسب محافظتك.",
+  returnText: "لو وصلك المنتج بعيب أو مش زي الطلب، كلمنا على واتساب في نفس اليوم ونحلها معاك.",
+  brand: "اسم متجرك"
+};
+/* ============================================================ */
+
+const GOVS = ["القاهرة","الجيزة","الإسكندرية","القليوبية","الشرقية","الدقهلية","الغربية","المنوفية","البحيرة","كفر الشيخ","دمياط","بورسعيد","الإسماعيلية","السويس","الفيوم","بني سويف","المنيا","أسيوط","سوهاج","قنا","الأقصر","أسوان","الوادي الجديد","مطروح","شمال سيناء","جنوب سيناء","البحر الأحمر"];
+const $ = id => document.getElementById(id);
+const fmt = n => n.toLocaleString("ar-EG") + " ج";
+
+document.title = CONFIG.name;
+$("strip").textContent = CONFIG.strip;
+$("name").textContent = CONFIG.name;
+$("tagline").textContent = CONFIG.tagline;
+$("price").textContent = fmt(CONFIG.price);
+$("barprice").textContent = fmt(CONFIG.price);
+if (CONFIG.oldPrice > CONFIG.price) {
+  $("old").textContent = fmt(CONFIG.oldPrice);
+  $("save").textContent = "وفّر " + fmt(CONFIG.oldPrice - CONFIG.price);
+}
+$("faq-ship").textContent = CONFIG.shipText;
+$("faq-return").textContent = CONFIG.returnText;
+$("faq-pay").textContent = "الدفع بفودافون كاش أو إنستا باي. بعد التحويل ابعت صورة الإيصال على واتساب وهنشحن طلبك.";
+$("foot").textContent = CONFIG.brand;
+
+// gallery
+const gal = $("gallery"), thumbs = $("thumbs");
+if (CONFIG.images.length) {
+  const main = document.createElement("img");
+  main.alt = CONFIG.name; main.src = CONFIG.images[0];
+  gal.appendChild(main);
+  if (CONFIG.images.length > 1) {
+    CONFIG.images.forEach((src, i) => {
+      const b = document.createElement("button");
+      b.type = "button"; b.setAttribute("aria-label", "صورة " + (i + 1));
+      b.setAttribute("aria-current", i === 0);
+      const im = document.createElement("img"); im.src = src; im.alt = "";
+      b.appendChild(im);
+      b.onclick = () => {
+        main.src = src;
+        [...thumbs.children].forEach(c => c.setAttribute("aria-current", c === b));
+      };
+      thumbs.appendChild(b);
+    });
+  }
+} else {
+  gal.innerHTML = '<div class="placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="1.6"/><path d="M21 15l-5-5L5 21"/></svg><div>حط صورة المنتج هنا<br>(images في الإعدادات)</div></div>';
+}
+
+// features + specs
+CONFIG.features.forEach(([t, d]) => {
+  const li = document.createElement("li");
+  li.innerHTML = '<span class="tick" aria-hidden="true">✓</span><div><strong></strong><span class="d"></span></div>';
+  li.querySelector("strong").textContent = t;
+  li.querySelector(".d").textContent = d;
+  $("features").appendChild(li);
+});
+CONFIG.specs.forEach(([k, v]) => {
+  const tr = document.createElement("tr");
+  tr.innerHTML = "<th></th><td></td>";
+  tr.children[0].textContent = k; tr.children[1].textContent = v;
+  $("specs").appendChild(tr);
+});
+
+// governorates
+$("fgov").innerHTML = '<option value="">اختار المحافظة</option>' + GOVS.map(g => `<option>${g}</option>`).join("");
+
+// quantity + total
+let qty = 1;
+function render() {
+  $("qty").textContent = qty.toLocaleString("ar-EG");
+  $("total").textContent = fmt(CONFIG.price * qty + CONFIG.shipping);
+  payInfo();
+}
+function payInfo() {
+  const v = $("fpay").value === "vodafone";
+  const total = CONFIG.price * qty + CONFIG.shipping;
+  $("payinfo").textContent = "حوّل " + fmt(total) + " على " + (v ? "فودافون كاش: " + CONFIG.payVodafone : "إنستا باي: " + CONFIG.payInsta) + ". وبعد التحويل ابعت صورة الإيصال على واتساب.";
+}
+$("fpay").onchange = payInfo;
+$("minus").onclick = () => { if (qty > 1) { qty--; render(); } };
+$("plus").onclick = () => { if (qty < 10) { qty++; render(); } };
+render();
+
+// send to WhatsApp
+$("send").onclick = () => {
+  const name = $("fname").value.trim();
+  const phone = $("fphone").value.trim().replace(/\s/g, "");
+  const gov = $("fgov").value;
+  const addr = $("faddr").value.trim();
+  const err = $("err");
+  if (!name) return err.textContent = "اكتب اسمك.";
+  if (!/^(\+?20|0)?1[0125]\d{8}$/.test(phone)) return err.textContent = "رقم الموبايل مش مظبوط، مثال: 01012345678";
+  if (!gov) return err.textContent = "اختار المحافظة.";
+  if (addr.length < 8) return err.textContent = "اكتب العنوان بالتفصيل.";
+  err.textContent = "";
+  const total = CONFIG.price * qty + CONFIG.shipping;
+  const payLabel = $("fpay").value === "vodafone" ? "فودافون كاش" : "إنستا باي";
+  const msg =
+`طلب جديد
+المنتج: ${CONFIG.name}
+الكمية: ${qty}
+الاسم: ${name}
+الموبايل: ${phone}
+المحافظة: ${gov}
+العنوان: ${addr}
+الإجمالي شامل الشحن: ${total} جنيه
+طريقة الدفع: ${payLabel} (هبعت صورة التحويل)`;
+  if (CONFIG.sheetUrl) {
+    try {
+      fetch(CONFIG.sheetUrl, {
+        method: "POST", mode: "no-cors", keepalive: true,
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ product: CONFIG.name, name, phone, gov, address: addr, qty, total, pay: payLabel })
+      });
+    } catch (e) {}
+  }
+  window.open("https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(msg), "_blank");
+};
+</script>
+</body>
+</html>
